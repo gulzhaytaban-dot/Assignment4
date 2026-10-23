@@ -4,13 +4,31 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.artspace.ui.theme.ArtSpaceTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,10 +38,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ArtSpaceTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    ArtSpaceScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -31,17 +46,65 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
+fun ArtSpaceScreen(modifier: Modifier = Modifier) {
+    Column(
         modifier = modifier
-    )
+            .fillMaxSize()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement =  Arrangement.SpaceBetween
+    ) {
+        ArtworkWall(imageRes = R.drawable.golden_lilies)
+        ArtworkDescriptor(titleRes = R.string.yellow_lilies)
+    }
 }
+
+@Composable
+fun ArtworkWall(@DrawableRes imageRes: Int, modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier.padding(top = 32.dp),
+        shadowElevation = 8.dp
+    ) {
+        Image(
+            painter = painterResource(imageRes),
+            contentDescription = null,
+            modifier = Modifier
+                .padding(24.dp)
+                .size(300.dp),
+            contentScale = ContentScale.Crop
+        )
+    }
+}
+
+
+@Composable
+fun ArtworkDescriptor(@StringRes titleRes: Int,modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(Color(0xFFECEBF4))
+            .padding(16.dp)
+    ) {
+        Text(
+            text = stringResource(titleRes),
+            fontSize = 26.sp,
+            fontWeight = FontWeight.Light
+        )
+        Row{
+            Text(
+                text = stringResource(R.string.artist),
+                fontWeight = FontWeight.Bold
+            )
+            Text(text = " (${stringResource(R.string.year)})")
+        }
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun ArtSpacePreview() {
     ArtSpaceTheme {
-        Greeting("Android")
+        ArtSpaceScreen()
     }
 }

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Art Space</string>
+    <string name="yellow_lilies">Yellow Lilies</string>
+    <string name="pink_peonies">Pink Peonies</string>
+    <string name="white_lilies">White Eyeliner Lilies</string>
+    <string name="artist">Amelia</string>
+    <string name="year">2026</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
 </resources>
