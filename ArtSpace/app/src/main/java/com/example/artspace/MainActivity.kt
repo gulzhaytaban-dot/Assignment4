@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -56,6 +58,7 @@ fun ArtSpaceScreen(modifier: Modifier = Modifier) {
     ) {
         ArtworkWall(imageRes = R.drawable.golden_lilies)
         ArtworkDescriptor(titleRes = R.string.yellow_lilies)
+        DisplayController()
     }
 }
 
@@ -96,6 +99,28 @@ fun ArtworkDescriptor(@StringRes titleRes: Int,modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold
             )
             Text(text = " (${stringResource(R.string.year)})")
+        }
+    }
+}
+
+@Composable
+fun DisplayController(modifier: Modifier = Modifier)
+{
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Button(
+            onClick = { },
+            modifier = Modifier.width(140.dp)
+        ) {
+            Text(stringResource(R.string.previous))
+        }
+        Button(
+            onClick = { },
+            modifier = Modifier.width(140.dp)
+        ) {
+            Text(stringResource(R.string.next))
         }
     }
 }
