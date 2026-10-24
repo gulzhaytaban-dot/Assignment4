@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -43,7 +44,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ArtSpaceTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize(),
+                         containerColor = Color(0xFFFCE8DE)) { innerPadding ->
                     ArtSpaceScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
@@ -115,7 +117,7 @@ fun ArtworkDescriptor(@StringRes titleRes: Int,modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(Color(0xFFECEBF4))
+            .background(Color(0xFFF8D5C6))
             .padding(16.dp)
     ) {
         Text(
@@ -145,14 +147,16 @@ fun DisplayController(
     ) {
         Button(
             onClick = onPreviousClick,
-            modifier = Modifier.width(140.dp)
+            modifier = Modifier.width(140.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE39A85))
         ) {
             Text(stringResource(R.string.previous))
         }
 
         Button(
             onClick = onNextClick,
-            modifier = Modifier.width(140.dp)
+            modifier = Modifier.width(140.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE39A85))
         ) {
             Text(stringResource(R.string.next))
         }
