@@ -73,7 +73,13 @@ fun ArtSpaceScreen(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        ArtworkWall(imageRes = imageRes)
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            ArtworkWall(imageRes = imageRes)
+            Text(
+                text = "$currentArtwork / 3",
+                modifier = Modifier.padding(top = 8.dp)
+            )
+        }
         ArtworkDescriptor(titleRes = titleRes)
         DisplayController(
             onPreviousClick = {
@@ -143,6 +149,7 @@ fun DisplayController(
         ) {
             Text(stringResource(R.string.previous))
         }
+
         Button(
             onClick = onNextClick,
             modifier = Modifier.width(140.dp)
