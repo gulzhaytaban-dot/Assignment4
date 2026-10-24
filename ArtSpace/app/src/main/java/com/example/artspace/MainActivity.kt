@@ -67,6 +67,11 @@ fun ArtSpaceScreen(modifier: Modifier = Modifier) {
         2 -> R.string.pink_peonies
         else -> R.string.white_lilies
     }
+    val artistRes = when(currentArtwork) {
+        1 -> R.string.golden_lilies_artist
+        2 -> R.string.pink_peonies_artist
+        else -> R.string.white_lilies_artist
+    }
 
     Column(
         modifier = modifier
@@ -82,7 +87,7 @@ fun ArtSpaceScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(top = 8.dp)
             )
         }
-        ArtworkDescriptor(titleRes = titleRes)
+        ArtworkDescriptor(titleRes = titleRes, artistRes = artistRes)
         DisplayController(
             onPreviousClick = {
                 currentArtwork = if (currentArtwork == 1) 3 else currentArtwork - 1
@@ -113,7 +118,9 @@ fun ArtworkWall(@DrawableRes imageRes: Int, modifier: Modifier = Modifier) {
 
 
 @Composable
-fun ArtworkDescriptor(@StringRes titleRes: Int,modifier: Modifier = Modifier) {
+fun ArtworkDescriptor(@StringRes titleRes: Int,
+                      @StringRes artistRes: Int,
+                      modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -127,10 +134,9 @@ fun ArtworkDescriptor(@StringRes titleRes: Int,modifier: Modifier = Modifier) {
         )
         Row{
             Text(
-                text = stringResource(R.string.artist),
+                text = stringResource(artistRes),
                 fontWeight = FontWeight.Bold
             )
-            Text(text = " (${stringResource(R.string.year)})")
         }
     }
 }
