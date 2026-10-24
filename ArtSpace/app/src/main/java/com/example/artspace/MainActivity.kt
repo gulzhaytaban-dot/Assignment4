@@ -21,6 +21,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -49,16 +53,36 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ArtSpaceScreen(modifier: Modifier = Modifier) {
+    var currentArtwork by remember { mutableStateOf(1) }
+
+    val imageRes = when (currentArtwork) {
+        1 -> R.drawable.golden_lilies
+        2 -> R.drawable.pink_peonies
+        else -> R.drawable.white_lilies
+    }
+    val titleRes = when (currentArtwork) {
+        1 -> R.string.golden_lilies
+        2 -> R.string.pink_peonies
+        else -> R.string.white_lilies
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement =  Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        ArtworkWall(imageRes = R.drawable.golden_lilies)
-        ArtworkDescriptor(titleRes = R.string.yellow_lilies)
-        DisplayController()
+        ArtworkWall(imageRes = imageRes)
+        ArtworkDescriptor(titleRes = titleRes)
+        DisplayController(
+            onPreviousClick = {
+                currentArtwork = if (currentArtwork == 1) 3 else currentArtwork - 1
+            },
+            onNextClick = {
+                currentArtwork = if (currentArtwork == 3) 1 else currentArtwork + 1
+            }
+        )
     }
 }
 
@@ -104,20 +128,23 @@ fun ArtworkDescriptor(@StringRes titleRes: Int,modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun DisplayController(modifier: Modifier = Modifier)
-{
+fun DisplayController(
+    onPreviousClick: () -> Unit,
+    onNextClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Button(
-            onClick = { },
+            onClick = onPreviousClick,
             modifier = Modifier.width(140.dp)
         ) {
             Text(stringResource(R.string.previous))
         }
         Button(
-            onClick = { },
+            onClick = onNextClick,
             modifier = Modifier.width(140.dp)
         ) {
             Text(stringResource(R.string.next))
